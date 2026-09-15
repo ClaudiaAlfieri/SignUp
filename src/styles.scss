@@ -51,3 +51,26 @@ mat-toolbar {
     color: var(--mat-sys-on-primary) !important;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.ml-5{
+  margin-left: 5px;
+}
+
+.mt-20 {
+margin-top: 20px;
+}
+
+.mt-40 {
+margin-top: 40px;
+}
+
+.mt-60 {
+margin-top: 60px;
+}
+
+.full-width {
+width: 100%;
+}
