@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -7,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ClienteService } from '../cliente';
+import { Cliente } from '../cadastro/cliente';
 
 
 @Component({
@@ -18,13 +20,22 @@ import { ClienteService } from '../cliente';
     FormsModule,
     MatIconModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CommonModule
   ],
   templateUrl: './consulta.html',
   styleUrl: './consulta.scss',
 })
-export class Consulta {
-  constructor(private clienteService: ClienteService) {
-    
+export class Consulta implements OnInit {
+
+  listaClientes: Cliente[] = [];
+  colunasTable: string[] = ['id', 'nome', 'cpf','dataNascimento', 'email'];
+
+  constructor(private clienteService: ClienteService){
+
+  }
+
+  ngOnInit() {
+    this.listaClientes = this.clienteService.pesquisarClientes(" ");
   }
 }
