@@ -31,6 +31,7 @@ export class Cadastro {
 
   salvar(){
     this.clienteService.salvar(this.cliente);
+    this.cliente = Cliente.newCliente();
   }
 
 }
