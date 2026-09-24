@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { Cliente } from './cliente';
 import { ClienteService } from '../cliente';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -32,6 +32,7 @@ export class Cadastro implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -51,8 +52,12 @@ export class Cadastro implements OnInit {
   }
 
   salvar(){
-    this.clienteService.salvar(this.cliente);
-    this.cliente = Cliente.newCliente();
+    if(!this.atualizando){
+      this.clienteService.salvar(this.cliente);
+      this.cliente = Cliente.newCliente();
+    } else{
+      this.clienteService.atualizar(this.cliente);
+      this.router.navigate(['/consulta']);
+    }
   }
-
 }
