@@ -28,6 +28,12 @@ export class ClienteService {
     return clientes.filter(cliente => cliente.nome?.indexOf(nomeBusca) !== -1);
   }
 
+  buscarClientePorId(idCliente: string) : Cliente|undefined {
+    const clientes = this.obterStorage();
+    return clientes.find(cliente => cliente.id === idCliente);
+
+  }
+
   private obterStorage() : Cliente[] {
     const repositorioClientes = localStorage.getItem(ClienteService.REPO_CLIENTES);
     if (repositorioClientes) {
