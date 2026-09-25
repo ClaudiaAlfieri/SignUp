@@ -1,59 +1,110 @@
-# SignUpTemp
+# SignUp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.22.
+![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Angular Material](https://img.shields.io/badge/Angular_Material-21-3F51B5?style=for-the-badge&logo=angular&logoColor=white)
+![BrasilAPI](https://img.shields.io/badge/BrasilAPI-009C3B?style=for-the-badge&logoColor=white)
 
-## Development server
 
-To start a local development server, run:
+> Customer registration web application built with **Angular 21** and **Angular Material**, developed as a study project while following an Angular course.
+>
+> The app allows users to register, search, edit and delete customers, with Brazilian states and municipalities loaded dynamically from the public [BrasilAPI](https://brasilapi.com.br/).
 
+---
+
+## 📌 About the Project
+
+**SignUp** is a CRUD application for managing customers. The user fills in a form with the customer's personal data (name, email, CPF, date of birth, state and municipality) and saves it. Customers can then be searched by name, edited or deleted from the search page.
+
+The state (UF) and municipality fields are dependent dropdowns: the list of states is fetched from BrasilAPI when the page opens, and the list of municipalities is fetched whenever a state is selected. All data is persisted in the browser's `localStorage`.
+
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 📋 Customer registration | Form with name, email, CPF, date of birth, state and municipality |
+| 🎭 Input masks | CPF and date of birth formatted automatically with ngx-mask |
+| 🌎 Dependent dropdowns | States and municipalities loaded from BrasilAPI via `HttpClient` |
+| 🔍 Search by name | Search page listing customers in a Material table |
+| ✏️ Edit | Opens the registration form pre-filled with the selected customer's data, including the municipality list |
+| 🗑️ Delete with confirmation | Two-step delete button to avoid accidental removals |
+| 🔔 Feedback messages | Snackbar notifications after saving, updating and deleting |
+| 💾 Local persistence | Customers saved in `localStorage` between sessions |
+
+---
+
+## 🚀 How to Run
+
+1. Clone the repository:
 ```bash
-ng serve
+git clone https://github.com/ClaudiaAlfieri/SignUp.git
+cd SignUp
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. Install the dependencies:
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+3. Start the development server:
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+4. Open in the browser: `http://localhost:4200`
 
-To build the project run:
+> No API key is needed — BrasilAPI is public and free.
 
-```bash
-ng build
+---
+
+## 🎮 How to Test the Main Flow
+
+1. The app opens on the **registration** page (`/cadastro`)
+2. Fill in the customer's name, email, CPF and date of birth
+3. Select a **state (UF)** — the **municipality** list is loaded automatically
+4. Click **Save** and check the confirmation message
+5. Go to the **search** page (`/consulta`) and search for the customer by name
+6. Click **Edit** to update the data, or **Delete** and then **Confirm** to remove the customer
+
+---
+
+## 🛠️ Technologies Used
+
+- **Angular 21** — framework (standalone components)
+- **TypeScript** — static typing
+- **Angular Material** — UI components (cards, inputs, selects, table, snackbar, icons)
+- **Angular Flex-Layout** — responsive layout
+- **Angular Router** — navigation and query parameters
+- **HttpClient + RxJS** — HTTP requests and Observables
+- **ngx-mask** — input masks
+- **BrasilAPI** — public API for Brazilian states and municipalities (IBGE data)
+- **localStorage** — local data persistence
+- **Git / GitHub** — version control
+
+---
+
+## 🗂️ Project Structure
+
+```
+src/app/
+├── cadastro/               # Registration page (form, dependent dropdowns, save/update)
+│   └── cliente.ts          # Customer model
+├── consulta/               # Search page (table, edit, delete)
+├── brasilapi.ts            # Service that consumes BrasilAPI
+├── brasilapi.models.ts     # State and Municipality interfaces
+├── cliente.ts              # Customer service (localStorage CRUD)
+├── app.routes.ts           # Application routes
+└── app.config.ts           # Providers (router, HttpClient)
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 👩‍💻 Author
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Developed by **Cláudia Alfieri** as a study project while learning Angular.
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Made with ❤️, lots of `console.log()` and a good dose of curiosity along the way 🚀
