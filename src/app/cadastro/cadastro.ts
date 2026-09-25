@@ -51,19 +51,23 @@ export class Cadastro implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe((query: any) => {
-      const params = query['params'];
-      const id = params['id'];
-      if(id){
-        let clienteEncontrado = this.clienteService.buscarClientePorId(id);
-        if(clienteEncontrado){
-          this.atualizando = true;
-          this.cliente = clienteEncontrado;
+    this.route.queryParamMap.subscribe( (query: any) => {
+        const params = query['params']
+        const id = params['id']
+        if(id){
+          let clienteEncontrado = this.service.buscarClientePorId(id);
+          if(clienteEncontrado){
+            this.atualizando = true;
+            this.cliente = clienteEncontrado;
+            if(this.cliente.uf){
+              const event = { value: this.cliente.uf }
+              this.carregarMunicipios(event as MatSelectChange);
+            }
+          }
         }
-        this.atualizando = true;
-        this.cliente = this.clienteService.buscarClientePorId(id) || Cliente.newCliente();
-      }
     })
+
+    this.carregarUFs();
   }
 
  carregarUFs(){
@@ -71,6 +75,14 @@ export class Cadastro implements OnInit {
     this.brasilapi.listarUfs().subscribe({
       next: listaEstados => this.estados = listaEstados,
       error: erro => console.log("ocorreu um erro: ", erro)
+    })
+  }
+
+carregarMunicipios(event: MatSelectChange){
+    const ufSelecionada = event.value;
+    this.brasilapi.listarMunicipios(ufSelecionada).subscribe({
+      next: listaMunicipios => this.municipios = listaMunicipios,
+      error: erro => console.log('ocorreu um erro: ', erro)
     })
   }
 
