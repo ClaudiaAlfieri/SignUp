@@ -50,25 +50,25 @@ export class Cadastro implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.route.queryParamMap.subscribe( (query: any) => {
-        const params = query['params']
-        const id = params['id']
-        if(id){
-          let clienteEncontrado = this.service.buscarClientePorId(id);
-          if(clienteEncontrado){
-            this.atualizando = true;
-            this.cliente = clienteEncontrado;
-            if(this.cliente.uf){
-              const event = { value: this.cliente.uf }
-              this.carregarMunicipios(event as MatSelectChange);
-            }
-          }
-        }
-    })
+ ngOnInit(): void {
+  this.carregarUFs();
 
-    this.carregarUFs();
-  }
+  this.route.queryParamMap.subscribe((query: any) => {
+    const params = query['params'];
+    const id = params['id'];
+    if (id) {
+      let clienteEncontrado = this.clienteService.buscarClientePorId(id);
+      if (clienteEncontrado) {
+        this.atualizando = true;
+        this.cliente = clienteEncontrado;
+        if (this.cliente.uf) {
+        const event = { value: this.cliente.uf };
+        this.carregarMunicipios(event as MatSelectChange);
+      }
+      }
+    }
+  });
+}
 
  carregarUFs(){
     // observable  subscriber
